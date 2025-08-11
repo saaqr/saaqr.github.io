@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakery Delight</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        background-color: #fffaf3;
+        color: #4a2c2a;
+    }
+
+    header {
+        background-color: #800000;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transform: translateY(30px);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        cursor: pointer;
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .card-content h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #800000;
+    }
+
+    .card-content p {
+        margin: 0.5rem 0;
+        color: #6e4e47;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #b30000;
+        margin-top: 0.5rem;
+    }
+
+    /* Hover Effect */
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Animation fade-in */
+    .show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+<header>🍰 Bakery Delight - Aneka Kue Lezat</header>
+
+<div class="container" id="cakeContainer">
+    <!-- Kue akan dimasukkan lewat JavaScript -->
+</div>
+
+<script>
+    // Data Kue
+    const cakes = [
+        { name: "Strawberry Cheesecake", price: "Rp 35.000", img: "https://images.unsplash.com/photo-1605478521044-5c77f16c0f8f" },
+        { name: "Chocolate Lava Cake", price: "Rp 28.000", img: "https://images.unsplash.com/photo-1617196039924-7a1f57aaec7f" },
+        { name: "Red Velvet Slice", price: "Rp 30.000", img: "https://images.unsplash.com/photo-1601979031896-6d9ebc27a3f3" },
+        { name: "Tiramisu", price: "Rp 32.000", img: "https://images.unsplash.com/photo-1599785209707-28c78b51d51a" },
+        { name: "Lemon Tart", price: "Rp 25.000", img: "https://images.unsplash.com/photo-1605478904954-2dffb1f8c8cb" },
+        { name: "Matcha Roll Cake", price: "Rp 27.000", img: "https://images.unsplash.com/photo-1625944195231-bc67f1829476" }
+    ];
+
+    const container = document.getElementById('cakeContainer');
+
+    // Generate Card HTML
+    cakes.forEach((cake, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${cake.img}?auto=format&fit=crop&w=800&q=80" alt="${cake.name}">
+            <div class="card-content">
+                <h3>${cake.name}</h3>
+                <p class="price">${cake.price}</p>
+            </div>
+        `;
+        container.appendChild(card);
+
+        // Delay animasi setiap kartu
+        setTimeout(() => {
+            card.classList.add('show');
+        }, index * 200);
+    });
+
+    // Interaksi klik
+    container.addEventListener('click', e => {
+        const card = e.target.closest('.card');
+        if (card) {
+            alert(`Anda memilih: ${card.querySelector('h3').textContent}`);
+        }
+    });
+</script>
+
+</body>
+</html>
